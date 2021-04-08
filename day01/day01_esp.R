@@ -26,7 +26,6 @@ r <-
             # Number of cells - increase for more definition
             type = "regular",
             exact = TRUE)
-plot(r)
 
 
 # Turn grid object to data.frame

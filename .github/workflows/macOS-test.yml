@@ -1,21 +1,19 @@
-name: last-tweet
+name: macOS-virtual
 
 on:
   workflow_dispatch:
   
 jobs:
-  last-tweet:
+  macOS-virtual:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@v1
       - name: Query dependencies
         run: |
-          install.packages(c('mapSpain', 'sf', 'readr', 'dplyr', 'glue'))
+          install.packages(c('mapSpain', 'sf', 'readr', 'dplyr', 'glue', 'devtools', 'remotes'))
           install.packages(c('ggplot2', 'ggtext', 'ragg'))
           
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
 
       - name: Cache R packages
@@ -34,7 +32,7 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add -A
+          git add day01
           git commit -m 'New map created' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
     
